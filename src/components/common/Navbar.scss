@@ -1,0 +1,70 @@
+.nav-link {
+  font-family: sans-serif;
+}
+
+.site-navbar .nav-link.active {
+  font-weight: 600;
+}
+
+.site-navbar .navbar-brand {
+  font-weight: 700;
+}
+
+.react-logo {
+  width: 28px;
+  height: auto;
+  margin-right: 0.5rem;
+}
+
+.site-navbar .navbar-brand span {
+  line-height: 1;
+}
+
+.site-navbar .navbar-brand {
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 160ms ease;
+  will-change: transform;
+}
+
+.site-navbar .navbar-brand:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.site-navbar .navbar-brand:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.site-navbar .navbar-nav .nav-link {
+  position: relative;
+  padding-bottom: 0.6rem;
+}
+
+.site-navbar .navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.18rem;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 28px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 2px;
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
+  opacity: 0.95;
+}
+
+.site-navbar .navbar-nav .nav-link:hover::after,
+.site-navbar .navbar-nav .nav-link.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.site-navbar .navbar-nav .nav-link.active::after {
+  width: 36px;
+}
+
+.site-navbar {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}

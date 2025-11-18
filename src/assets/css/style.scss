@@ -1,0 +1,25 @@
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure anchored sections have space from top for sticky navbar */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Import fonts (if not using the link tag) */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+}
