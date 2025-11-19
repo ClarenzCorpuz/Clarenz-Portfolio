@@ -4,6 +4,7 @@ import emailjs from "emailjs-com";
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,14 +13,26 @@ function Contact() {
 
   const formRef = useRef(null);
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!validateEmail(form.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    setError(null);
     setStatus("sending");
 
     emailjs
       .sendForm(
         "service_sgko4e5",
-        "template_q36750b",
+        "template_98o02rs",
         formRef.current,
         "Ocaq4Rm5z9oBfHUNJ"
       )
@@ -144,6 +157,8 @@ function Contact() {
                     required
                   />
                 </div>
+
+                {error && <div className="mb-3 text-danger">{error}</div>}
 
                 <div className="d-flex align-items-center">
                   <button
