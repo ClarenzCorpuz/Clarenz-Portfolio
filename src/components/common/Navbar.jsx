@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import reactLogo from "../../assets/react.svg";
 import "./Navbar.scss";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
@@ -30,7 +31,6 @@ function Navbar() {
 
     sections.forEach((section) => observer.observe(section));
 
-    // Smooth scroll for in-page nav links (prevent instant jump)
     const handleNavClick = (e) => {
       const href = e.currentTarget.getAttribute("href");
       if (!href || !href.startsWith("#")) return;
@@ -81,6 +81,9 @@ function Navbar() {
         try {
           history.pushState(null, "", `#${id}`);
         } catch (err) {}
+        try {
+          setMenuOpen(false);
+        } catch (err) {}
       }
     };
 
@@ -104,15 +107,17 @@ function Navbar() {
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNav"
+          onClick={() => setMenuOpen((v) => !v)}
           aria-controls="mainNav"
-          aria-expanded="false"
+          aria-expanded={menuOpen}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="mainNav">
+        <div
+          className={`collapse navbar-collapse ${menuOpen ? "show" : ""}`}
+          id="mainNav"
+        >
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <a href="#home" className="nav-link">

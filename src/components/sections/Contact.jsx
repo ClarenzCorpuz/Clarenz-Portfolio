@@ -51,6 +51,17 @@ function Contact() {
                   Isabela
                 </li>
               </ul>
+              <div className="mt-3">
+                <a
+                  href="/Resume MCVC-P.pdf"
+                  className="btn btn-outline-primary"
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download My CV (PDF)
+                </a>
+              </div>
             </div>
           </div>
 
