@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import emailjs from "emailjs-com";
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -9,9 +10,31 @@ function Contact() {
     setForm((f) => ({ ...f, [name]: value }));
   };
 
+  const formRef = useRef(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setForm({ name: "", email: "", message: "" });
+    setStatus("sending");
+
+    emailjs
+      .sendForm(
+        "service_sgko4e5",
+        "template_q36750b",
+        formRef.current,
+        "Ocaq4Rm5z9oBfHUNJ"
+      )
+      .then(
+        (result) => {
+          setStatus("sent");
+          setForm({ name: "", email: "", message: "" });
+          setTimeout(() => setStatus(null), 5000);
+        },
+        (error) => {
+          console.error("EmailJS error:", error);
+          setStatus("error");
+          setTimeout(() => setStatus(null), 5000);
+        }
+      );
   };
 
   return (
@@ -67,7 +90,12 @@ function Contact() {
 
           <div className="about-bottom-right col-md-7">
             <div className="contact-form-container card p-4 shadow-sm">
-              <form onSubmit={handleSubmit} className="contact-form" noValidate>
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="contact-form"
+                noValidate
+              >
                 <div className="row">
                   <div className="col-lg-6 mb-3">
                     <label htmlFor="name" className="form-label">
@@ -128,6 +156,11 @@ function Contact() {
                   {status === "sent" && (
                     <div className="ms-3 text-success">
                       Message sent — thank you!
+                    </div>
+                  )}
+                  {status === "error" && (
+                    <div className="ms-3 text-danger">
+                      Failed to send message.
                     </div>
                   )}
                 </div>
