@@ -150,6 +150,22 @@
   color: rgb(0, 0, 75);
 }
 
+.about-title-2 {
+  color: #0a7500;
+}
+
+.skills-title-2 {
+  color: #750060;
+}
+
+.projects-title-2 {
+  color: #750000;
+}
+
+.contact-title-2 {
+  color: #000475;
+}
+
 .about-content {
   width: 100%;
   max-width: 980px;
@@ -176,7 +192,9 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 2rem;
+  /* shift left column a bit to the right */
+  padding-left: 3rem;
+  text-align: left;
 }
 
 .about-image-wrap {
@@ -187,7 +205,7 @@
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.08);
   transition: transform 220ms ease, box-shadow 220ms ease;
   background-color: #fff;
-  margin-top: 5rem;
+  margin-top: 2em;
   margin-left: 10rem;
 }
 
@@ -207,23 +225,63 @@
   flex: 1;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
-  padding-right: 10rem;
-  padding-top: 10rem;
+  justify-content: flex-start;
+  /* add slight left padding so the right column content moves right too */
+  padding-left: 2rem;
+  padding-right: 4rem;
+  padding-top: 3rem;
 }
 
 .about-text {
-  text-align: justify;
-  font-size: 1.15rem;
+  text-align: left;
+  font-size: 1rem;
   line-height: 1.6;
   color: rgb(0, 0, 75);
   max-width: 550px;
+}
+
+.about-contact {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: rgb(30, 30, 30);
+  line-height: 1.45;
+  text-align: left;
+}
+
+.about-contact p {
+  margin: 0.25rem 0;
 }
 
 .about-text-block {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  text-align: left;
+}
+
+.contact-info,
+.about-bottom-left .contact-list {
+  text-align: left;
+}
+
+.contact-intro {
+  max-width: 420px;
+  width: 420px;
+}
+
+@media (max-width: 768px) {
+  .contact-intro {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.about-bottom-left .about-text-block {
+  margin-left: 7rem;
+}
+
+.about-bottom-right .contact-form-container {
+  margin-left: 2rem;
 }
 
 .about-text-header {
@@ -316,6 +374,10 @@
   background: #efe0ff;
 }
 
+#contact.site-section {
+  background: #e6f7ff;
+}
+
 .skills-box {
   width: 100%;
   max-width: 1100px;
@@ -338,6 +400,24 @@
 }
 
 .skills-grid {
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+    /* Animate background position from top to bottom and loop */
+    background: var(--project-bg, #fff) top/cover no-repeat;
+    animation: project-bg-pan-vertical 2.2s cubic-bezier(0.2, 0.9, 0.2, 1)
+      infinite alternate;
+  }
+
+  @keyframes project-bg-pan-vertical {
+    0% {
+      background-position: top;
+    }
+    100% {
+      background-position: bottom;
+    }
+  }
+
   display: grid;
   /* 5 cards per row on wide screens */
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -360,9 +440,72 @@
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    background 320ms cubic-bezier(0.2, 0.9, 0.2, 1);
   min-height: 120px;
   display: flex;
+  position: relative;
+}
+
+.project-thumb-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  background: var(--project-bg, #fff) top/cover no-repeat;
+  animation: project-bg-pan-vertical 2.5s linear infinite alternate;
+}
+
+.project-card:hover .project-title,
+.project-card:hover .project-desc,
+.project-card:hover .project-meta,
+.project-card:hover .project-link-text {
+  color: #fff !important;
+  transition: color 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    text-shadow 220ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  text-shadow: 0 0 2px #000, 0 0 4px #000, 1px 1px 2px #000, -1px -1px 2px #000;
+}
+
+.project-link .project-card:hover {
+  color: white;
+}
+
+@keyframes project-bg-pan-vertical {
+  0% {
+    background-position: top;
+  }
+  10% {
+    background-position: top;
+  }
+  90% {
+    background-position: bottom;
+  }
+  100% {
+    background-position: bottom;
+  }
+}
+
+.project-card:hover .project-thumb {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease;
+}
+
+.project-thumb {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-right: 0;
+  margin-bottom: 12px;
+  background: #fff;
+  flex-shrink: 0;
+  transition: opacity 220ms ease;
 }
 
 .project-link {
@@ -568,8 +711,4 @@
     width: 26px;
     height: 26px;
   }
-}
-
-section[id] {
-  scroll-margin-top: 2em;
 }

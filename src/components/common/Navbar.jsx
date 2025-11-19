@@ -66,8 +66,6 @@ function Navbar() {
           requestAnimationFrame(step);
         };
 
-        // Use native smooth only when supported and there is no header offset.
-        // If a sticky header exists we prefer the JS fallback so we can apply the offset.
         const canUseNativeSmooth =
           typeof CSS !== "undefined" &&
           CSS.supports &&
@@ -82,9 +80,7 @@ function Navbar() {
 
         try {
           history.pushState(null, "", `#${id}`);
-        } catch (err) {
-          // ignore
-        }
+        } catch (err) {}
       }
     };
 
@@ -136,6 +132,11 @@ function Navbar() {
             <li className="nav-item">
               <a href="#projects" className="nav-link">
                 Projects
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#contact" className="nav-link">
+                Contact
               </a>
             </li>
           </ul>
