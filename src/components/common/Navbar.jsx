@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AOS from "aos";
 import { Link } from "react-router-dom";
 import reactLogo from "../../assets/react.svg";
 import "./Navbar.scss";
@@ -42,7 +43,7 @@ function Navbar() {
         const headerOffset =
           document.querySelector(".site-navbar")?.offsetHeight || 0;
 
-        const smoothScrollTo = (element) => {
+        const smoothScrollTo = (element, cb) => {
           const targetY =
             element.getBoundingClientRect().top +
             window.pageYOffset -
@@ -61,6 +62,7 @@ function Navbar() {
             const eased = easeInOutQuad(time);
             window.scrollTo(0, Math.round(startY + distance * eased));
             if (time < 1) requestAnimationFrame(step);
+            else if (typeof cb === "function") cb();
           };
 
           requestAnimationFrame(step);
@@ -72,11 +74,60 @@ function Navbar() {
           CSS.supports("scroll-behavior", "smooth") &&
           headerOffset === 0;
 
-        if (canUseNativeSmooth && target.scrollIntoView) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-        } else {
-          smoothScrollTo(target);
-        }
+        // Scroll to target and animate its child elements with a "fade-up" effect.
+        // We avoid animating elements that already have AOS attributes.
+        const runNavAnim = (section) => {
+          if (!section) return;
+          const children = Array.from(section.querySelectorAll(":scope > *"));
+          const animElems = children.filter(
+            (el) => !el.hasAttribute("data-aos")
+          );
+          if (!animElems.length) return;
+
+          animElems.forEach((el, i) => {
+            el.classList.add("nav-anim");
+            el.style.transitionDelay = `${i * 60}ms`;
+          });
+
+          // trigger
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              animElems.forEach((el) => el.classList.add("nav-anim--in"));
+            }, 20);
+          });
+
+          // cleanup after animation finishes
+          const total = animElems.length * 60 + 520;
+          setTimeout(() => {
+            animElems.forEach((el) => {
+              el.classList.remove("nav-anim", "nav-anim--in");
+              el.style.transitionDelay = "";
+            });
+          }, total);
+        };
+
+        const scrollAndAnimate = () => {
+          if (canUseNativeSmooth && target.scrollIntoView) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            // native smooth scroll approximate duration; run anim after it should be in view
+            setTimeout(() => {
+              runNavAnim(target);
+              // refresh AOS so elements with data-aos animate after scroll
+              try {
+                AOS.refresh();
+              } catch (err) {}
+            }, 520);
+          } else {
+            smoothScrollTo(target, () => {
+              runNavAnim(target);
+              try {
+                AOS.refresh();
+              } catch (err) {}
+            });
+          }
+        };
+
+        scrollAndAnimate();
 
         try {
           history.pushState(null, "", `#${id}`);

@@ -34,38 +34,45 @@ const skills = [
 function Skills() {
   return (
     <section id="skills" className="site-section py-5">
-      <div className="about-top">
-        <div className="about-header">
-          <i className="bi bi-code-slash about-icon" aria-hidden="true"></i>
-          <h2 className="about-title">
-            Skills <label className="skills-title-2">and Technologies</label>
-          </h2>
+      <div
+        className="site-section-inner"
+        data-aos="fade-up"
+        data-aos-duration="700"
+        data-aos-once="false"
+      >
+        <div className="about-top">
+          <div className="about-header">
+            <i className="bi bi-code-slash about-icon" aria-hidden="true"></i>
+            <h2 className="about-title">
+              Skills <label className="skills-title-2">and Technologies</label>
+            </h2>
+          </div>
         </div>
-      </div>
-      <div className="skills-box">
-        <div className="skills-intro">
-          <p className="skills-intro-text">
-            Here are my skills, tools, and technologies I commonly use. These
-            represent my experience and areas I'm actively improving.
-          </p>
-        </div>
-        <div className="skills-grid" role="list">
-          {skills.map((s) => (
-            <div key={s.key} className="skill-card" role="listitem">
-              <div
-                className="skill-logo"
-                style={{ backgroundColor: s.color }}
-                aria-hidden="true"
-              >
-                {s.img ? (
-                  <img src={s.img} alt={s.name} className="skill-img" />
-                ) : (
-                  <span className="skill-initial">{s.name.charAt(0)}</span>
-                )}
+        <div className="skills-box">
+          <div className="skills-intro">
+            <p className="skills-intro-text">
+              Here are my skills, tools, and technologies I commonly use. These
+              represent my experience and areas I'm actively improving.
+            </p>
+          </div>
+          <div className="skills-grid" role="list">
+            {skills.map((s) => (
+              <div key={s.key} className="skill-card" role="listitem">
+                <div
+                  className="skill-logo"
+                  style={{ backgroundColor: s.color }}
+                  aria-hidden="true"
+                >
+                  {s.img ? (
+                    <img src={s.img} alt={s.name} className="skill-img" />
+                  ) : (
+                    <span className="skill-initial">{s.name.charAt(0)}</span>
+                  )}
+                </div>
+                <div className="skill-label">{s.name}</div>
               </div>
-              <div className="skill-label">{s.name}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
