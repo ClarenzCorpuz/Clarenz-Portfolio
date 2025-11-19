@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     AOS.init({
       once: false,
+      mirror: true,
       duration: 700,
       offset: 120,
       easing: "ease-out-cubic",

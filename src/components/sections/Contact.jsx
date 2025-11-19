@@ -13,6 +13,10 @@ function Contact() {
 
   const formRef = useRef(null);
 
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -20,6 +24,13 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      setError(
+        "Email service is not configured. Add EmailJS keys to your .env"
+      );
+      return;
+    }
 
     if (!validateEmail(form.email)) {
       setError("Please enter a valid email address.");
@@ -29,25 +40,18 @@ function Contact() {
     setError(null);
     setStatus("sending");
 
-    emailjs
-      .sendForm(
-        "service_sgko4e5",
-        "template_98o02rs",
-        formRef.current,
-        "Ocaq4Rm5z9oBfHUNJ"
-      )
-      .then(
-        (result) => {
-          setStatus("sent");
-          setForm({ name: "", email: "", message: "" });
-          setTimeout(() => setStatus(null), 5000);
-        },
-        (error) => {
-          console.error("EmailJS error:", error);
-          setStatus("error");
-          setTimeout(() => setStatus(null), 5000);
-        }
-      );
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY).then(
+      (result) => {
+        setStatus("sent");
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus(null), 5000);
+      },
+      (error) => {
+        console.error("EmailJS error:", error);
+        setStatus("error");
+        setTimeout(() => setStatus(null), 5000);
+      }
+    );
   };
 
   return (
