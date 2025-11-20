@@ -42,8 +42,8 @@ function Skills() {
       >
         <div className="about-top">
           <div className="about-header">
-            <i className="bi bi-code-slash about-icon" aria-hidden="true"></i>
-            <h2 className="about-title">
+            <i className="bi bi-code-slash skills-icon" aria-hidden="true"></i>
+            <h2 className="skills-title about-title">
               Skills <label className="skills-title-2">and Technologies</label>
             </h2>
           </div>

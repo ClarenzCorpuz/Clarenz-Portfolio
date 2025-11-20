@@ -33,6 +33,7 @@
   );
   font-weight: 500;
   min-height: 1.6rem;
+  text-align: center; /* Center the subtitle text */
 }
 
 .typewriter {
@@ -68,6 +69,7 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  justify-content: center; /* Center the social links */
 }
 
 .social-link {
@@ -140,6 +142,11 @@
 
 .about-icon {
   font-size: 2.4rem;
+  color: rgb(0, 0, 75);
+}
+
+.skills-icon {
+  font-size: 2rem;
   color: rgb(0, 0, 75);
 }
 
@@ -271,6 +278,32 @@
     width: 100%;
     max-width: none;
   }
+
+  .skills-title {
+    font-size: 1.4rem;
+  }
+
+  .skills-intro-text {
+    text-align: justify;
+  }
+
+  .project-thumb-wrap .project-thumb {
+    width: 100px;
+    height: 100px;
+  }
+
+  #contact.site-section {
+    text-align: justify; /* Center all contents in the contact section */
+  }
+
+  #contact .contact-form-container,
+  #contact .contact-info {
+    margin: 0 auto; /* Ensure proper centering */
+  }
+
+  .contact-section .about-name {
+    text-align: justify;
+  }
 }
 
 .about-bottom-left .about-text-block {
@@ -375,6 +408,16 @@
 
   .about-text-header {
     text-align: center;
+  }
+
+  .about-text {
+    text-align: justify;
+  }
+}
+
+@media (min-width: 769px) {
+  .hero-subtitle {
+    text-align: left; /* Align subtitle to the left in web view */
   }
 }
 
